@@ -73,7 +73,7 @@ export default async (dir, lintStyle) => {
 
     for (const profile of ['development', 'production']) {
       const envTarget = content.env[profile]['application/javascript'].presets.find(x => x[0] === 'env');
-      envTarget[1].targets.electron = electronPrebuilt.version;
+      envTarget[1].targets.electron = parseFloat(electronPrebuilt.version.split('.').slice(0, 2).join('.'));
     }
 
     await fs.writeFile(path.join(dir, '.compilerc'), JSON.stringify(content, null, 2), 'utf8');
